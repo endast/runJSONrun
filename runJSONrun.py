@@ -50,13 +50,13 @@ def writeJSON(JSONdata, outputFile):
 	    	exit(2)
 		
 def usage():
-	print "\nUsage: runJSONrun.py file.csv ..."
+	print "\nUsage: runJSONrun.py -i file.csv ..."
 	print "Convert runmeter (http://www.abvio.com/runmeter/) csv files to JSON."
 	print ""
 	print "If you start runJSONrun and only specify a csv file, it will dump the JSON data to standard out."
 	print ""
 	print "-?, \t\tPrint this help and exit..."
-	print "-i, --input\tThe runmeter CSV file to read (needed only if you wan't to write to a file)"
+	print "-i, --input\tThe runmeter CSV file to read"
 	print "-o, --output\tThe file you wan't the JSON data to be written to"
 	print "-V, \t\tPrint the version and exit\n"
 
@@ -74,13 +74,6 @@ def main():
 
 	inputFile = None
 	outputFile = None
-	
-	# If we only have one argument, we assume it's the csv file
-	if len(argv) == 2:
-		inputFile = argv[1]
-	elif len(argv) == 1:
-		usage()
-		exit()
 		
 	for o, a in opts:
 		if o in ("-i", "--input"):
@@ -95,7 +88,8 @@ def main():
 			exit()
 		else:
 			assert False, "unhandled option " + o
-			
+			exit(2)
+		
 	if inputFile != None:
 
 		# Parse the CSV file
