@@ -18,3 +18,4 @@ If you start runJSONrun and only specify a csv file, it will dump the JSON data 
 
 ## TODO
 * GeoJSON support?
+* Remove the need for -i (runJSONrun.py Runmeter.csv)
