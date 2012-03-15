@@ -1,7 +1,7 @@
 # runJSONrun
 
 ## What does it do?
-runJSONrun converts Runmeter CSV exports to JSON.
+runJSONrun converts Runmeter (http://www.abvio.com/runmeter/) CSV exports to JSON.
 
 ## Usage
 runJSONrun.py Runmeter.csv
