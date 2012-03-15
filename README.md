@@ -3,6 +3,9 @@
 ## What does it do?
 runJSONrun converts Runmeter (http://www.abvio.com/runmeter/) CSV exports to JSON.
 
+## Why?
+I wanted my runs in a JSON.
+
 ## Usage
 runJSONrun.py -i Runmeter.csv
 
