@@ -17,7 +17,12 @@ import json
 VERSION = "0.1"
 
 def getCSVData(csvFile):
-	rawCSV = csv.DictReader(open(csvFile), delimiter=';')
+	try:
+		rawCSV = csv.DictReader(open(csvFile), delimiter=';')
+	except IOError, (errno, strerror):
+		print "I/O error(%s): %s" % (errno, strerror)
+    	exit(2)
+
 	return rawCSV
 
 def cleanUpHeaders(csvData):
