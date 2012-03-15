@@ -19,11 +19,12 @@ VERSION = "0.1"
 def getCSVData(csvFile):
 	try:
 		rawCSV = csv.DictReader(open(csvFile), delimiter=';')
+		return rawCSV
+		
 	except IOError, (errno, strerror):
 		print "I/O error(%s): %s" % (errno, strerror)
     	exit(2)
 
-	return rawCSV
 
 def cleanUpHeaders(csvData):
 	for idx, fieldname in enumerate(csvData.fieldnames):
@@ -74,7 +75,7 @@ def main():
 	inputFile = None
 	outputFile = None
 	
-	# If we only have one argument, we assume its the csv file
+	# If we only have one argument, we assume it's the csv file
 	if len(argv) == 2:
 		inputFile = argv[1]
 	elif len(argv) == 1:
@@ -96,23 +97,24 @@ def main():
 			assert False, "unhandled option " + o
 			
 	if inputFile != None:
-	
+
+		# Parse the CSV file
 		RawcsvData = getCSVData(inputFile)
 		csvData = cleanUpHeaders(RawcsvData)
-
-		print csvData
-
-		# Add all data to an array
+		
+		# Add all data points to an array
 		dataPoints = []
 		for row in csvData:
 			dataPoints.append(row)
 		
+		# Convert the data to JSON
 		jsonData = json.dumps(dataPoints)
 		
+		# Output the jsondata, to stdout
 		writeJSON(jsonData, outputFile)
 		
 	else:
-		print "Could not read input file... exiting."
+		print "No input file... exiting."
 		exit(2)
 			
 if __name__ == '__main__':
