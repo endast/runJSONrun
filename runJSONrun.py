@@ -32,6 +32,7 @@ def version():
 	print "runJSONrun v" + VERSION
 
 def main():
+
 	try:
 		opts, args = getopt(argv[1:], "?hi:o:V", ["?", "input=", "output="])
 	except GetoptError, err:
@@ -41,6 +42,10 @@ def main():
 	inputFile = None
 	outputFile = None
 	
+	# If we only have one argument, we assume its the csv file
+	if len(argv) == 2:
+		inputFile = argv[1]
+		
 	for o, a in opts:
 		if o in ("-i", "--input"):
 			inputFile = a
@@ -52,26 +57,32 @@ def main():
 		else:
 			assert False, "unhandled option " + o
 
-
 	RunMeterCSVFile = inputFile
 
-#	RunMeterCSVFile = "Runmeter-Cycle-20120315-0804.csv"
 	if inputFile != None:
-		
+	
 		RawcsvData = getCSVData(RunMeterCSVFile)
 		csvData = cleanUpHeaders(RawcsvData)
 		
 		points = []
 		for row in csvData:
 			points.append(row)
-
-		print json.dumps(points)
-			# Lon = row['Longitude']
-			# Lat = row['Latitude']
-			# print Lat, Lon
 		
+		jsonData = json.dumps(points)
+		
+		# No outputfile specified, dump to stdout
+		if outputFile == None:
+			print jsonData
+		else:
+			print "Writing JSON data to", outputFile
+		
+			jsonFile = open(outputFile,"w")
+			jsonFile.writelines(jsonData)
+			jsonFile.close()
+			
+			
 	else:
-		print "Could not read input"
+		print "Could not read input file"
 		exit(2)
 			
 if __name__ == '__main__':
