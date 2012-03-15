@@ -39,10 +39,15 @@ def writeJSON(JSONdata, outputFile):
 	else:
 		print "Writing JSON data to", outputFile
 		
-		jsonFile = open(outputFile,"w")
-		jsonFile.writelines(JSONdata)
-		jsonFile.close()
-
+		try:
+			jsonFile = open(outputFile,"w")
+			jsonFile.writelines(JSONdata)
+			jsonFile.close()
+		
+		except IOError, (errno, strerror):
+			print "I/O error(%s): %s" % (errno, strerror)
+	    	exit(2)
+		
 def usage():
 	print "\nUsage: runJSONrun.py file.csv ..."
 	print "Convert runmeter (http://www.abvio.com/runmeter/) csv files to JSON."
@@ -65,6 +70,7 @@ def main():
 		print str(err)
 		usage()
 		exit(2)
+
 	inputFile = None
 	outputFile = None
 	
@@ -93,7 +99,9 @@ def main():
 	
 		RawcsvData = getCSVData(inputFile)
 		csvData = cleanUpHeaders(RawcsvData)
-		
+
+		print csvData
+
 		# Add all data to an array
 		dataPoints = []
 		for row in csvData:
