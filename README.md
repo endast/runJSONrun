@@ -26,7 +26,7 @@ If you start runJSONrun and only specify a csv file, it will dump the JSON data 
 #JSON format
 The header names gets cleaned up:
 * Whitespace is removed
-* If the column has a typ, for example km/h it gets converted to _kmh
+* If the column has a type, like km/h it gets converted to _kmh
 ex:
 
 * Average Speed (km/h) -> AverageSpeed_kmh"
